@@ -6,6 +6,7 @@ from datetime import datetime
 from email.mime.text import MIMEText
 
 filename = "quotes.txt"
+subjectFile = "subjects.txt"
 
 
 def function_for_monday(filename):
@@ -19,30 +20,36 @@ def function_for_tuesday(filename):
         lines = f.readlines()
         return random.choice(lines[20:41])
 
+
 def function_for_wednesday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
         return random.choice(lines[42:53])
+
 
 def function_for_thursday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
         return random.choice(lines[54:65])
 
+
 def function_for_friday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
         return random.choice(lines[66:77])
+
 
 def function_for_saturday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
         return random.choice(lines[78:89])
 
+
 def function_for_sunday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
         return random.choice(lines[90:100])
+
 
 
 def get_random_quote(filename):
@@ -77,10 +84,73 @@ def get_random_quote(filename):
         return "you stoopid fix this"
 
 
+##Need 52 words for each day of the week
+def subjectOfTheDay():
+    from datetime import datetime
+    current_day = datetime.today().weekday()
+    if current_day == 0:
+        return subject_for_monday(subjectFile)
+    elif current_day == 1:
+        return subject_for_tuesday(subjectFile)
+    elif current_day == 2:
+        return subject_for_wednesday(subjectFile)
+    elif current_day == 3:
+        return subject_for_thursday(subjectFile)
+    elif current_day == 4:
+        return subject_for_friday(subjectFile)
+    elif current_day == 5:
+        return subject_for_saturday(subjectFile)
+    elif current_day == 6:
+        return subject_for_sunday(subjectFile)
+    else:
+        return "you stoopid fix this"
+
+def subject_for_monday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[:52])
+
+
+def subject_for_tuesday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[20:41])
+
+
+def subject_for_wednesday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[42:53])
+
+
+def subject_for_thursday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[54:65])
+
+
+def subject_for_friday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[53:104])
+
+
+def subject_for_saturday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[78:89])
+
+
+def subject_for_sunday(filename):
+    with open(filename, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+        return random.choice(lines[90:100])
+
+
 # Set the email parameters
 to_email = 'antqdasilva@gmail.com'
 from_email = 'qdee508@gmail.com'
-subject = 'Daily Motivation'
+subject = subjectOfTheDay()
 message = get_random_quote("quotes.txt")
 
 # Create the email message
