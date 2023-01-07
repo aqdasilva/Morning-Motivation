@@ -1,7 +1,6 @@
 import re
 import smtplib
 import random
-import re
 from datetime import datetime
 from email.mime.text import MIMEText
 
