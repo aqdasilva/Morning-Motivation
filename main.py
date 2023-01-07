@@ -114,37 +114,37 @@ def subject_for_monday(filename):
 def subject_for_tuesday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
-        return random.choice(lines[20:41])
+        return random.choice(lines[53:104])
 
 
 def subject_for_wednesday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
-        return random.choice(lines[42:53])
+        return random.choice(lines[105:156])
 
 
 def subject_for_thursday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
-        return random.choice(lines[54:65])
+        return random.choice(lines[157:208])
 
 
 def subject_for_friday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
-        return random.choice(lines[53:104])
+        return random.choice(lines[209:260])
 
 
 def subject_for_saturday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
-        return random.choice(lines[78:89])
+        return random.choice(lines[260:312]) + "Saturday"
 
 
 def subject_for_sunday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
-        return random.choice(lines[90:100])
+        return random.choice(lines[313:365]) + "Sunday"
 
 
 # Set the email parameters
