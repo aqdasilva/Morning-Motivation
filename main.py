@@ -3,6 +3,16 @@ import smtplib
 import random
 from datetime import datetime
 from email.mime.text import MIMEText
+from sendMemes import generate_meme
+import secrets
+##using giphy api to create and find memes to attach to each email
+import requests
+import json
+import secrets
+
+
+# searches giphy based upon what you put here
+search_term = 'motivation'
 
 filename = "quotes.txt"
 subjectFile = "subjects.txt"
@@ -52,17 +62,6 @@ def function_for_sunday(filename):
 
 
 def get_random_quote(filename):
-    # with open(filename, 'r', encoding="utf8") as f:
-    #     # reads lines in file
-    #     lines = f.readlines()
-    #     # Use a list comprehension to extract the lines that are in quotation marks
-    #     quotes = [line for line in lines if re.search('"(.+)"', line)]
-    #
-    #     # Select a random line
-    #     line = random.choice(quotes)
-    #
-    #     # return the line
-    #     return (line)
     from datetime import datetime
     current_day = datetime.today().weekday()
     if current_day == 0:
@@ -144,6 +143,26 @@ def subject_for_sunday(filename):
     with open(filename, 'r', encoding="utf8") as f:
         lines = f.readlines()
         return random.choice(lines[313:365]) + "Sunday"
+def generate_meme(search_term):
+    # makes a request to giphy api
+    response = requests.get(
+        f"https://api.giphy.com/v1/gifs/search?api_key={secrets.GIPHY_KEY}&q={search_term}&limit=1&offset=0&rating=G&lang=en")
+
+    # Load the response data into a Python dictionary
+    response_data = json.loads(response.text)
+
+    # Get the URL of the first GIF in the search results
+    gif_url = response_data['data'][0]['images']['original']['url']
+
+    return gif_url
+
+# searches giphy based upon what you put here
+search_term = 'motivation'
+
+# generate a random a meme from giphy
+gif_url = generate_meme(search_term)
+
+print(gif_url)
 
 
 # Set the email parameters
@@ -151,6 +170,8 @@ to_email = 'antqdasilva@gmail.com'
 from_email = 'qdee508@gmail.com'
 subject = subjectOfTheDay()
 message = get_random_quote("quotes.txt")
+meme = generate_meme(search_term)
+body = gif_url
 
 # Create the email message
 msg = MIMEText(message)
@@ -165,7 +186,7 @@ server.starttls()
 server.login(from_email, 'lkiu uxzy xxea gcwr')
 
 # Send the email
-server.sendmail(from_email, to_email, msg.as_string())
+server.sendmail(from_email, to_email, msg.as_string(body))
 
 # Disconnect from the server
 server.quit()
