@@ -3,16 +3,13 @@ import smtplib
 import random
 from datetime import datetime
 from email.mime.text import MIMEText
-from sendMemes import generate_meme
-import secrets
-##using giphy api to create and find memes to attach to each email
 import requests
 import json
 import secrets
 
 
 # searches giphy based upon what you put here
-search_term = 'motivation'
+search_term = ["motivation", "gym", "pump", "fuck", "hype", "no fucks given", "monday motivation"]
 
 filename = "quotes.txt"
 subjectFile = "subjects.txt"
@@ -169,8 +166,7 @@ print(gif_url)
 to_email = 'antqdasilva@gmail.com'
 from_email = 'qdee508@gmail.com'
 subject = subjectOfTheDay()
-message = get_random_quote("quotes.txt")
-meme = generate_meme(search_term)
+message = get_random_quote("quotes.txt") + generate_meme(search_term)
 body = gif_url
 
 # Create the email message
